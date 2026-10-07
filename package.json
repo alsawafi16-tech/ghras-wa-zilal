@@ -1,12 +1,10 @@
 {
-  "name": "ghars-wa-zilal-final",
-  "version": "5.0.0",
+  "name": "ghars-wa-zilal",
+  "version": "6.0.0",
   "private": true,
   "dependencies": {
     "@capacitor/android": "7.4.3",
-    "@capacitor/core": "7.4.3",
-    "@capacitor/filesystem": "7.1.4",
-    "@capacitor/share": "7.0.2"
+    "@capacitor/core": "7.4.3"
   },
   "devDependencies": {
     "@capacitor/cli": "7.4.3"
