@@ -1,8 +1,8 @@
 {
-  "appId": "om.gharswazilal.final",
+  "appId": "om.gharswazilal.v6",
   "appName": "غرس وظلال",
   "webDir": "www",
   "android": {
-    "backgroundColor": "#F5F2E9"
+    "backgroundColor": "#f6f2e7"
   }
 }
