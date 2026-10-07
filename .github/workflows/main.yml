@@ -22,17 +22,17 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Add Android platform
-        run: npx cap add android
-
-      - name: Copy web files
-        run: npx cap copy android
-
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '21'
+
+      - name: Create Android project
+        run: npx cap add android
+
+      - name: Sync web app
+        run: npx cap sync android
 
       - name: Build APK
         working-directory: android
@@ -43,3 +43,4 @@ jobs:
         with:
           name: Ghars-Wa-Zilal-APK
           path: android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
