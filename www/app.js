@@ -128,6 +128,7 @@ if(id === "sustainability"){
         <div>
           <b>${esc(r.title || "ملاحظة")}</b>
           <p>${esc(r.note || "")}</p>
+          ${r.media ? (r.media.startsWith("blob:") ? `<img class="media" src="${r.media}" alt="">` : "") : ""}
           ${r.amount ? `<small>المبلغ: ${esc(r.amount)} ر.ع</small>` : ""}
           <small>${esc(r.date || "")}</small>
         </div>
@@ -170,24 +171,35 @@ function form(id){
       <textarea name="note" placeholder="اكتب الملاحظات والتفاصيل هنا..." required></textarea>
 
       <input name="date" type="date">
+<label>📷 إضافة صور أو فيديوهات</label><input name="media" type="file" accept="image/*,video/*" multiple>
+      
 
       <button class="primary" type="submit">حفظ السجل</button>
     </form>
   `;
 }
 
-function add(e,id){
+async function add(e,id){
   e.preventDefault();
 
   const f = new FormData(e.target);
-
+const mediaFile = f.get("media");
+let media = "";
+let mediaType = "";
+ if(mediaFile && mediaFile.size){
+  media = await fileToDataURL(mediaFile);
+  mediaType = mediaFile.type || "";
+} 
   if(!data[id]) data[id] = [];
 
   data[id].unshift({
     title: f.get("title") || "",
     note: f.get("note") || "",
     amount: f.get("amount") || "",
-    date: f.get("date") || new Date().toLocaleDateString("ar-OM")
+    date: f.get("date") || new 
+    Date().toLocaleDateString("ar-OM"),
+   media: media,
+mediaType: mediaType 
   });
 
   save();
@@ -240,6 +252,7 @@ function adminPanel(){
       <span class="project-copy">
         <b>${t}</b>
         <small>إدارة وإضافة السجلات</small>
+      <input type="file" accept="image/*" onchange="changeIcon(event,'${id}')" onclick="event.stopPropagation()">  
       </span>
       <span>‹</span>
     </button>
@@ -325,7 +338,7 @@ const content = records.length ? records.map((r,i) => {
       <div>
         <b>${esc(r.title || "محتوى")}</b>
         <p>${esc(r.note || "")}</p>
-        ${media}
+        ${r.media ? (r.mediaType && r.mediaType.startsWith("video/") ? `<video class="media" src="${r.media}" controls></video>` : `<img class="media" src="${r.media}" alt="صورة السجل">`) : ""}
         <small>${esc(r.date || "")}</small>
       </div>
       ${admin ? `<button onclick="delSustainability('${id}',${i})">حذف</button>` : ""}
@@ -420,5 +433,23 @@ function delSustainability(id,i){
   }
 
   sustainabilitySection(id);
+}
+async function changeIcon(event,id){
+  event.stopPropagation();
+
+  const file = event.target.files && event.target.files[0];
+  if(!file) return;
+
+  if(!file.type.startsWith("image/")){
+    alert("يرجى اختيار صورة فقط.");
+    return;
+  }
+
+  const image = await fileToDataURL(file);
+  customIcons[id] = image;
+  saveIcons();
+
+  alert("تم تغيير صورة الأيقونة بنجاح.");
+  adminPanel();
 }
 home();
