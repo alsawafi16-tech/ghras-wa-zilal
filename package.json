@@ -1,6 +1,6 @@
 {
-  "name": "ghras-wa-zilal",
-  "version": "1.0.0",
+  "name": "ghars-wa-zilal-final",
+  "version": "5.0.0",
   "private": true,
   "dependencies": {
     "@capacitor/android": "7.4.3",
