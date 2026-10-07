@@ -1,15 +1,518 @@
+:root{
+  --green:#0e5b46;
+  --green2:#19705a;
+  --mint:#eaf4ed;
+  --cream:#f8f5eb;
+  --text:#123e34;
+  --muted:#74817d;
+  --white:#ffffff;
+  --border:#dfe7e1;
+  --shadow:0 10px 28px rgba(16,74,57,.10);
+}
 
-:root{--g:#0e4b39;--g2:#19705a;--mint:#e9f5ef;--cream:#f7f3e8;--ink:#183a31;--muted:#6c7c76;--gold:#d4a84e}
-*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Noto Sans Arabic",Arial;background:linear-gradient(180deg,#edf7f2,#faf7ef 38%);color:var(--ink)}
-button,input,textarea{font:inherit}.app{max-width:760px;margin:auto;min-height:100vh;padding:18px 16px 90px}.top{display:flex;align-items:center;justify-content:space-between;margin:4px 0 18px}
-.brand{display:flex;gap:10px;align-items:center;font-weight:900}.logo{width:44px;height:44px;border-radius:15px;background:var(--g);display:grid;place-items:center;color:white;font-size:24px;box-shadow:0 8px 22px #0e4b3933}
-.btn{border:0;border-radius:14px;padding:11px 15px;background:var(--g);color:#fff;font-weight:800}.btn.alt{background:#fff;color:var(--g);border:1px solid #dbe7e1}.btn.danger{background:#8b2f2f}.hero{background:linear-gradient(135deg,var(--g),var(--g2));color:#fff;padding:25px;border-radius:28px;box-shadow:0 16px 40px #0e4b3930;margin-bottom:20px;overflow:hidden;position:relative}
-.hero:after{content:"🌿";position:absolute;left:14px;bottom:-15px;font-size:95px;opacity:.13}.hero h1{font-size:32px;margin:0 0 8px}.hero p{margin:0;opacity:.9;line-height:1.8}
-.title{font-size:21px;font-weight:900;margin:23px 3px 12px}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.card{background:#fff;border:1px solid #e0ebe5;border-radius:20px;padding:17px;box-shadow:0 7px 20px #163d3020;cursor:pointer;min-height:126px}
-.ico{font-size:28px}.card h3{font-size:15px;margin:10px 0 5px}.card small{color:var(--muted)}.panel{background:#fff;border:1px solid #e0ebe5;border-radius:22px;padding:17px;margin:12px 0;box-shadow:0 7px 20px #163d3016}
-.row{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.grow{flex:1}.field{width:100%;border:1px solid #d6e3dd;background:#fbfdfc;border-radius:14px;padding:12px;margin:6px 0 12px;outline:none}.field:focus{border-color:var(--g2);box-shadow:0 0 0 3px #19705a18}
-textarea.field{min-height:120px;resize:vertical}.record{background:#fff;border:1px solid #e0ebe5;border-radius:18px;padding:15px;margin:10px 0}.record h3{margin:0 0 7px}.muted{color:var(--muted);font-size:13px}.back{background:none;border:0;color:var(--g);font-weight:900;font-size:16px;padding:8px 0}.empty{text-align:center;padding:30px;color:var(--muted)}
-.stat{background:var(--mint);border-radius:16px;padding:13px;min-width:120px;flex:1}.stat b{display:block;font-size:23px}.adminbar{position:sticky;bottom:10px;background:#ffffffee;backdrop-filter:blur(8px);padding:10px;border:1px solid #dce8e2;border-radius:18px;margin-top:20px;box-shadow:0 8px 30px #163d3022}
-#toast{position:fixed;left:50%;bottom:25px;transform:translateX(-50%);background:#173e32;color:#fff;padding:10px 16px;border-radius:14px;display:none;z-index:9}
-.media{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}.media img,.media video{width:100%;height:90px;object-fit:cover;border-radius:12px;background:#eee}
-@media(max-width:390px){.grid{grid-template-columns:1fr}.hero h1{font-size:28px}}
+*{
+  box-sizing:border-box;
+}
+
+html,body{
+  margin:0;
+  padding:0;
+  width:100%;
+  min-height:100%;
+  background:
+    linear-gradient(180deg,#edf7f1 0,#f8f5eb 38%,#f8f5eb 100%);
+  color:var(--text);
+  font-family:Tahoma,Arial,sans-serif;
+}
+
+body{
+  direction:rtl;
+}
+
+button,input,textarea{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.app{
+  width:100%;
+  max-width:760px;
+  min-height:100vh;
+  margin:auto;
+  padding:22px 18px 45px;
+}
+
+/* أعلى التطبيق */
+
+.topbar{
+  display:grid;
+  grid-template-columns:64px 1fr auto;
+  gap:12px;
+  align-items:center;
+  margin-bottom:24px;
+}
+
+.brandmark{
+  width:60px;
+  height:60px;
+  border-radius:19px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:31px;
+  background:linear-gradient(145deg,var(--green2),var(--green));
+  box-shadow:var(--shadow);
+}
+
+.brandtext{
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+}
+
+.brandtext b{
+  font-size:22px;
+  color:var(--text);
+}
+
+.brandtext small{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.5;
+}
+
+.adminbtn,
+.iconbtn{
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.94);
+  color:var(--green);
+  box-shadow:0 5px 18px rgba(0,0,0,.05);
+}
+
+.adminbtn{
+  min-height:48px;
+  padding:9px 14px;
+  border-radius:15px;
+  font-weight:700;
+  white-space:nowrap;
+}
+
+.iconbtn{
+  width:50px;
+  height:50px;
+  border-radius:15px;
+  font-size:24px;
+}
+
+/* الترحيب */
+
+.welcome{
+  display:flex;
+  align-items:center;
+  gap:13px;
+  padding:4px 4px 18px;
+}
+
+.welcome .leaf{
+  display:none;
+}
+
+.welcome h1{
+  margin:0 0 7px;
+  font-size:30px;
+  color:var(--text);
+}
+
+.welcome p{
+  margin:0;
+  color:var(--muted);
+  font-size:16px;
+}
+
+/* البطاقة الرئيسية */
+
+.hero{
+  position:relative;
+  overflow:hidden;
+  min-height:290px;
+  border-radius:34px;
+  padding:38px 30px;
+  margin-bottom:34px;
+  color:#fff;
+  background:
+    radial-gradient(circle at 10% 100%,rgba(78,170,93,.38),transparent 35%),
+    linear-gradient(145deg,#0d624b,#146d54);
+  box-shadow:0 16px 36px rgba(13,91,70,.17);
+}
+
+.hero:after{
+  content:"🌿";
+  position:absolute;
+  left:20px;
+  bottom:-22px;
+  font-size:120px;
+  opacity:.11;
+  transform:rotate(-20deg);
+}
+
+.hero h2{
+  position:relative;
+  z-index:1;
+  margin:0 0 28px;
+  font-size:37px;
+  line-height:1.75;
+}
+
+.hero p{
+  position:relative;
+  z-index:1;
+  margin:0;
+  max-width:560px;
+  font-size:18px;
+  line-height:2;
+  color:rgba(255,255,255,.90);
+}
+
+/* عنوان الأقسام */
+
+.section-title{
+  margin:0 4px 20px;
+  font-size:27px;
+  color:var(--text);
+}
+
+/* بطاقات الأقسام */
+
+.cards{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:15px;
+}
+
+.project-card{
+  width:100%;
+  min-height:126px;
+  display:grid;
+  grid-template-columns:70px 1fr 24px;
+  align-items:center;
+  gap:15px;
+  text-align:right;
+  border:1px solid rgba(18,62,52,.08);
+  border-radius:26px;
+  padding:20px;
+  background:rgba(255,255,255,.96);
+  color:var(--text);
+  box-shadow:var(--shadow);
+  transition:transform .15s ease,box-shadow .15s ease;
+}
+
+.project-card:active{
+  transform:scale(.985);
+}
+
+.project-icon{
+  width:64px;
+  height:64px;
+  border-radius:20px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--mint);
+  font-size:34px;
+}
+
+.project-copy{
+  display:flex;
+  flex-direction:column;
+  gap:9px;
+  min-width:0;
+}
+
+.project-copy b{
+  font-size:20px;
+  line-height:1.4;
+}
+
+.project-copy small{
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.6;
+}
+
+.project-card > span:last-child{
+  font-size:28px;
+  color:#9aa8a3;
+}
+
+/* رأس صفحات الأقسام */
+
+.page-head{
+  text-align:center;
+  padding:24px 18px;
+  margin-bottom:18px;
+  border-radius:28px;
+  background:linear-gradient(145deg,#e6f4eb,#f8fbf8);
+  border:1px solid var(--border);
+}
+
+.big-icon{
+  width:78px;
+  height:78px;
+  margin:0 auto 12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:24px;
+  background:#fff;
+  box-shadow:var(--shadow);
+  font-size:42px;
+}
+
+.page-head h1{
+  margin:8px 0;
+  font-size:27px;
+}
+
+.page-head p{
+  margin:0;
+  color:var(--muted);
+  line-height:1.8;
+}
+
+/* الملاحظات */
+
+.notice{
+  margin:16px 0;
+  padding:17px;
+  border-radius:18px;
+  background:#edf6ef;
+  border:1px solid #d8e8dd;
+  line-height:1.8;
+  color:#315c50;
+}
+
+/* نموذج الإضافة */
+
+.entry-form{
+  display:grid;
+  gap:13px;
+  padding:20px;
+  margin:18px 0;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:25px;
+  box-shadow:var(--shadow);
+}
+
+.entry-form h3{
+  margin:0 0 4px;
+  font-size:20px;
+}
+
+.entry-form input,
+.entry-form textarea{
+  width:100%;
+  border:1px solid #d8e1dc;
+  border-radius:15px;
+  background:#fbfcfb;
+  color:var(--text);
+  padding:14px;
+  outline:none;
+}
+
+.entry-form input:focus,
+.entry-form textarea:focus{
+  border-color:#69a78e;
+  box-shadow:0 0 0 3px rgba(25,112,90,.08);
+}
+
+.entry-form textarea{
+  min-height:150px;
+  resize:vertical;
+  line-height:1.8;
+}
+
+/* زر رئيسي */
+
+.primary{
+  width:100%;
+  border:0;
+  border-radius:17px;
+  padding:15px 18px;
+  margin-top:10px;
+  background:linear-gradient(145deg,var(--green2),var(--green));
+  color:#fff;
+  font-weight:700;
+  box-shadow:0 8px 20px rgba(14,91,70,.18);
+}
+
+/* السجلات */
+
+.records{
+  display:grid;
+  gap:13px;
+  margin-top:18px;
+}
+
+.record{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:15px;
+  padding:18px;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:21px;
+  box-shadow:0 7px 20px rgba(0,0,0,.05);
+}
+
+.record div{
+  min-width:0;
+}
+
+.record b{
+  display:block;
+  font-size:18px;
+  margin-bottom:8px;
+}
+
+.record p{
+  margin:0 0 9px;
+  color:#4f625c;
+  line-height:1.8;
+  white-space:pre-wrap;
+}
+
+.record small{
+  display:block;
+  margin-top:5px;
+  color:var(--muted);
+}
+
+.record button{
+  flex:none;
+  border:0;
+  border-radius:12px;
+  padding:8px 11px;
+  background:#fff0ef;
+  color:#a53c36;
+}
+
+.empty{
+  padding:30px 18px;
+  text-align:center;
+  border-radius:22px;
+  background:#fff;
+  border:1px dashed #ccd8d1;
+  color:var(--muted);
+}
+
+/* الهواتف */
+
+@media(max-width:520px){
+
+  .app{
+    padding:16px 14px 38px;
+  }
+
+  .topbar{
+    grid-template-columns:55px 1fr auto;
+    gap:9px;
+  }
+
+  .brandmark{
+    width:53px;
+    height:53px;
+    border-radius:17px;
+    font-size:27px;
+  }
+
+  .brandtext b{
+    font-size:19px;
+  }
+
+  .brandtext small{
+    font-size:11px;
+  }
+
+  .adminbtn{
+    padding:8px 10px;
+    font-size:13px;
+  }
+
+  .welcome h1{
+    font-size:27px;
+  }
+
+  .hero{
+    min-height:260px;
+    padding:31px 23px;
+    border-radius:29px;
+  }
+
+  .hero h2{
+    font-size:31px;
+    line-height:1.65;
+    margin-bottom:23px;
+  }
+
+  .hero p{
+    font-size:16px;
+  }
+
+  .section-title{
+    font-size:25px;
+  }
+
+  .project-card{
+    min-height:116px;
+    grid-template-columns:60px 1fr 18px;
+    padding:17px;
+    gap:12px;
+    border-radius:23px;
+  }
+
+  .project-icon{
+    width:57px;
+    height:57px;
+    border-radius:18px;
+    font-size:30px;
+  }
+
+  .project-copy b{
+    font-size:18px;
+  }
+
+  .project-copy small{
+    font-size:13px;
+  }
+}
+
+@media(max-width:360px){
+
+  .brandtext small{
+    display:none;
+  }
+
+  .adminbtn{
+    font-size:11px;
+    padding:7px;
+  }
+
+  .hero h2{
+    font-size:27px;
+  }
+
+  .project-card{
+    grid-template-columns:52px 1fr 15px;
+  }
+
+  .project-icon{
+    width:50px;
+    height:50px;
+    font-size:27px;
+  }
+}
